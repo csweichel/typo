@@ -1,0 +1,9 @@
+ECHO this is a demo of typo - press any key to continue
+RUN ls
+
+ECHO here comes a terminal
+TERM bash
+
+CLEAR
+RUN mkdir /tmp/foobar
+RUN cd /tmp/foobar
