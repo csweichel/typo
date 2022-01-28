@@ -1,9 +1,13 @@
 SLEEP 1s
 ECHO this is a demo of typo - press any key to continue
-RUN ls
 
-ECHO here comes a terminal
+RUN cat example.txt
+
+ECHO it will type with a random delay and make the occasional mistake
+RUN go mod verify
+
+ECHO it can fall back to a terminal to let you freestyle
 TERM bash
 
-RUN mkdir /tmp/foobar
-RUN cd /tmp/foobar
+ECHO install typo with with
+RUN go install github.com/csweichel/typo@latest
