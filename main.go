@@ -54,6 +54,12 @@ func main() {
 			cmds = append(cmds, ClearCommand{})
 		case "TERM":
 			cmds = append(cmds, TermCommand(strings.TrimPrefix(line, "TERM ")))
+		case "SLEEP":
+			dur, err := time.ParseDuration(strings.TrimPrefix(line, "SLEEP "))
+			if err != nil {
+				log.Fatalf("line %d: %v", lc-1, err)
+			}
+			cmds = append(cmds, SleepCommand(dur))
 		default:
 			log.Fatalf("unknown command in line %d: %s", lc-1, line)
 		}
@@ -191,3 +197,12 @@ func (c TermCommand) Execute(f *os.File) error {
 }
 
 func (c TermCommand) Wait() bool { return true }
+
+type SleepCommand time.Duration
+
+func (c SleepCommand) Execute(f *os.File) error {
+	time.Sleep(time.Duration(c))
+	return nil
+}
+
+func (c SleepCommand) Wait() bool { return true }
